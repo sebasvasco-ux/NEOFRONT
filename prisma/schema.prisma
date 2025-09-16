@@ -1,0 +1,217 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relaciones
+  transactions Transaction[]
+  alerts       Alert[]
+  rules        Rule[]
+  reports      Report[]
+  workflows    Workflow[]
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  amount      Float
+  type        TransactionType
+  description String?
+  category    String?
+  status      TransactionStatus @default(PENDING)
+  version     Int      @default(1)
+  confidence  Float?   // Calificación de confianza (0-1)
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relaciones
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  alerts  Alert[]
+  versions TransactionVersion[]
+  
+  @@map("transactions")
+}
+
+model TransactionVersion {
+  id            String   @id @default(cuid())
+  transactionId String
+  version       Int
+  amount        Float
+  type          TransactionType
+  description   String?
+  category      String?
+  status        TransactionStatus
+  confidence    Float?
+  changedBy     String?
+  changeReason  String?
+  createdAt     DateTime @default(now())
+  
+  // Relaciones
+  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  
+  @@unique([transactionId, version])
+  @@map("transaction_versions")
+}
+
+model Alert {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  severity    AlertSeverity
+  status      AlertStatus @default(OPEN)
+  confidence  Float?     // Calificación de confianza (0-1)
+  userId      String
+  transactionId String?
+  ruleId      String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  
+  // Relaciones
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transaction Transaction? @relation(fields: [transactionId], references: [id])
+  rule        Rule?       @relation(fields: [ruleId], references: [id])
+  versions    AlertVersion[]
+  
+  @@map("alerts")
+}
+
+model AlertVersion {
+  id          String     @id @default(cuid())
+  alertId     String
+  version     Int
+  title       String
+  description String?
+  severity    AlertSeverity
+  status      AlertStatus
+  confidence  Float?
+  changedBy   String?
+  changeReason String?
+  createdAt   DateTime   @default(now())
+  
+  // Relaciones
+  alert Alert @relation(fields: [alertId], references: [id], onDelete: Cascade)
+  
+  @@unique([alertId, version])
+  @@map("alert_versions")
+}
+
+model Rule {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  type        RuleType
+  condition   String   // JSON con condiciones
+  action      String   // JSON con acciones
+  confidence  Float    // Calificación de la regla (0-1)
+  active      Boolean  @default(true)
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relaciones
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  alerts Alert[]
+  
+  @@map("rules")
+}
+
+model Report {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  type        ReportType
+  config      String       // JSON con configuración
+  schedule    String?      // Cron expression
+  lastRun     DateTime?
+  nextRun     DateTime?
+  userId      String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  // Relaciones
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("reports")
+}
+
+model Workflow {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  status      WorkflowStatus @default(DRAFT)
+  config      String       // JSON con configuración del workflow
+  userId      String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  
+  // Relaciones
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("workflows")
+}
+
+// Enums
+enum TransactionType {
+  INCOME
+  EXPENSE
+  TRANSFER
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum AlertSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum AlertStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  DISMISSED
+}
+
+enum RuleType {
+  DETECTION
+  PREVENTION
+  NOTIFICATION
+}
+
+enum ReportType {
+  SUMMARY
+  DETAILED
+  ANALYTICS
+  CUSTOM
+}
+
+enum WorkflowStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+}
