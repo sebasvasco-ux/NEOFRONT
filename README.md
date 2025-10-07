@@ -70,7 +70,26 @@ npm run build
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
+Windows note: If you're on Windows PowerShell, use the provided Windows-friendly scripts or set the environment variables with `cross-env`.
+
+Examples:
+
+```powershell
+# Install dependencies
+npm install
+
+# Use the standard dev script (calls nodemon + tsx)
+npm run dev
+
+# Or run the TS server directly on Windows
+npm run dev:win
+
+# Build and run for production (Windows)
+npm run build
+npm run start:win
+```
+
+Open [http://localhost:3010](http://localhost:3010) to see your application running (or the URL with the PORT you set).
 
 ## 🤖 Powered by Z.ai
 

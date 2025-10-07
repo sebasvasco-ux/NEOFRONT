@@ -154,9 +154,9 @@ export default function RulesConfiguration() {
     description: '',
     type: 'DETECTION',
     condition: {
-      amount: { operator: '>', value: '' },
+      amount: { operator: '>', value: 0 },
       timeRange: '1h',
-      frequency: { max: '', period: '1h' }
+      frequency: { max: 0, period: '1h' }
     },
     action: {
       alert: true,
@@ -185,16 +185,17 @@ export default function RulesConfiguration() {
       lastTriggered: null,
       triggerCount: 0
     };
-    setRules([...rules, rule]);
+  // Cast to any to avoid type mismatches in demo scaffold where multiple similar types exist
+  setRules([...rules, rule as any]);
     setIsCreateDialogOpen(false);
     setNewRule({
       name: '',
       description: '',
       type: 'DETECTION',
       condition: {
-        amount: { operator: '>', value: '' },
+        amount: { operator: '>', value: 0 },
         timeRange: '1h',
-        frequency: { max: '', period: '1h' }
+        frequency: { max: 0, period: '1h' }
       },
       action: {
         alert: true,
@@ -325,13 +326,13 @@ export default function RulesConfiguration() {
                         <Label>Monto</Label>
                         <Input
                           type="number"
-                          value={newRule.condition.amount.value}
+                          value={String(newRule.condition.amount.value)}
                           onChange={(e) => 
                             setNewRule({
                               ...newRule, 
                               condition: {
                                 ...newRule.condition,
-                                amount: {...newRule.condition.amount, value: e.target.value}
+                                amount: {...newRule.condition.amount, value: Number(e.target.value)}
                               }
                             })
                           }

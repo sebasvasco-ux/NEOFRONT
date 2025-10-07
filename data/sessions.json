@@ -1,0 +1,23 @@
+{
+  "sessions": {
+    "7aea0aef-fd6f-416c-be65-69d97edd1fab": {
+      "data": {
+        "sub": "admin",
+        "access_token": "eyJraWQiOiI3ZDQ5MjQxOS0xMmM5LTQwYjQtYjE2Yi05Mzg5MjM0Njg2M2QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1ZCI6ImZyb250ZW5kLWNsaWVudCIsIm5iZiI6MTc1OTgxOTU5MiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJlbWFpbCJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiIsImV4cCI6MTc1OTgyMDQ5MiwiaWF0IjoxNzU5ODE5NTkyLCJqdGkiOiI1NTA3ZGYwNy02ZmYyLTQ5YmUtOTFjOS04ZTczNGIxZTAzZGIiLCJlbWFpbCI6ImFkbWluQG5lb2lhLm9yZyJ9.VjQUNPWhK3jefQZ_Pg1eFHIKm-8Sl1_1I4ry7C-UrImSAzinweHmWp1cWgTuawC2aQGYGvWaypPd3PDmkPtUCs4RX3KACveShOxhjyj2w6ui13vhZjXau0Otgw-SOP677i5jFLS1-NeMLWbowBRaT4nDJQDoDUz-8xv2Zpsh5WDlUjIjHy6sErGUx0ULE5rrGGPPskfD8ZfvgU-Qnrmq0xRQGYc6WcFdVTZFaqt_nYD6-bOt8W3Vuzk3Vgtsiqv_pQsq0TMO84r2N4X5JfcTSMJY4hXjRIi3GhZVXwxOTWPAYZxowkjG2PV9UXpc_CYrvWuq9ofryppld4Xx2lJQ-A",
+        "id_token": "eyJraWQiOiI3ZDQ5MjQxOS0xMmM5LTQwYjQtYjE2Yi05Mzg5MjM0Njg2M2QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1ZCI6ImZyb250ZW5kLWNsaWVudCIsImF6cCI6ImZyb250ZW5kLWNsaWVudCIsImF1dGhfdGltZSI6MTc1OTgxODcyMywiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgxIiwiZXhwIjoxNzU5ODIxMzkyLCJpYXQiOjE3NTk4MTk1OTIsIm5vbmNlIjoiaGhRaGtRcUhUUHRwVTBEQWdFdkVXUSIsImp0aSI6ImNjOTJiZDY2LTFjMzgtNGNlMS1hYWI1LTZjNGQwYzEyOWZlZSIsInNpZCI6Im1GcnNmMVVXemJMYWFORElHVkxnckM4Y0pkT1RrVFpFU0VGcDlvMW9na00ifQ.Kfw7XM6R7tdaYnUmsroZCWQtgx_TMGbIHZATQ4WbogwstPI_YhjZ9-rk8Ypba0Tzjpmwpc2Tbn2MLpYK8vX29mQRAN2kdLBGGPjDleu0CfXPYJhJ1gh-YjQ-MqaZzVUyWfzIG3Gh2AAZJH1iRVsvxdLsVMqEtGGjev2FK0K0vlswRKIEG-4lo19OPFfGG5KR8TSgaOiu3w3mCH6croFoLl_bdXWB2WTWpwWF7WPxvmTVCrvRXlNEGvVE2XegNsUh0cIkYzP95d0s5ztWxN320aiwBsq0sTfzW1oJ0b3c0IMbQ_X343W34TjPez3VeOM_2UCovMxT3P_XHHAlMRtZCA",
+        "expires_at": 1759820491,
+        "created_at": 1759819592225,
+        "claims": {
+          "sub": "admin",
+          "email_verified": true,
+          "preferred_username": "admin",
+          "email": "admin@neoia.org"
+        },
+        "rotations": 0,
+        "absolute_expires_at": 1759848392
+      },
+      "exp": 1759820491
+    }
+  },
+  "timestamp": 1759820320721
+}
