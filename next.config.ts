@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
     // 构建时忽略ESLint错误
     ignoreDuringBuilds: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/adverse-media/:path*',
+        destination: 'http://localhost:8081/adverse-media/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

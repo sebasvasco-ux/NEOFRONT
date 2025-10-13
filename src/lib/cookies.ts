@@ -11,3 +11,13 @@ export function findCookieValue(cookieHeader: string | null | undefined, name: s
   const m = cookieHeader.match(regex)
   return m ? decodeURIComponent(m[1]) : null
 }
+
+export function getSessionId(): string | null {
+  if (typeof window === 'undefined') {
+    // Server-side: leer de las cookies del request
+    return null; // Esto debe ser manejado en el lado del servidor
+  }
+  
+  // Client-side: leer de document.cookie
+  return findCookieValue(document.cookie, SESSION_COOKIE_NAME)
+}

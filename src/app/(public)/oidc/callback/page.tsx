@@ -62,13 +62,13 @@ function CallbackInner() {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        console.log('🔄 OIDC Callback iniciado');
-        console.log('📍 Current URL:', window.location.href);
-        console.log('📍 Current pathname:', window.location.pathname);
-        console.log('📍 Current search:', window.location.search);
+        console.log('OIDC Callback iniciado');
+        console.log('Current URL:', window.location.href);
+        console.log('Current pathname:', window.location.pathname);
+        console.log('Current search:', window.location.search);
 
         if (!searchParams) {
-          console.error('❌ Missing URL parameters context');
+          console.error('Missing URL parameters context');
           setError('Missing URL parameters context');
           return;
         }
@@ -78,15 +78,15 @@ function CallbackInner() {
         const oauthError = searchParams.get('error') || undefined;
         const oauthErrorDesc = searchParams.get('error_description') || undefined;
 
-        console.log('📋 URL Parameters:');
+        console.log('URL Parameters:');
         console.log('  - code:', code ? `${code.substring(0, 10)}...` : 'undefined');
         console.log('  - state:', state ? `${state.substring(0, 10)}...` : 'undefined');
         console.log('  - error:', oauthError);
         console.log('  - error_description:', oauthErrorDesc);
 
         if (oauthError) {
-          console.error('❌ OAuth Error detected:', oauthError);
-          console.error('❌ OAuth Error Description:', oauthErrorDesc);
+          console.error('OAuth Error detected:', oauthError);
+          console.error('OAuth Error Description:', oauthErrorDesc);
           setRawError(oauthError);
           if (oauthErrorDesc) setErrorDescription(oauthErrorDesc);
           setError(`OAuth error: ${oauthError}`);
@@ -94,7 +94,7 @@ function CallbackInner() {
         }
 
         if (!code || !state) {
-          console.error('❌ Missing required parameters');
+          console.error('Missing required parameters');
           console.error('  - code present:', !!code);
           console.error('  - state present:', !!state);
           setError('Missing authorization code or state parameter');
@@ -102,14 +102,14 @@ function CallbackInner() {
         }
 
         const callbackUrl = `/api/oidc/callback?code=${code}&state=${state}`;
-        console.log('🔄 Redirecting to server callback:', callbackUrl);
-        console.log('⏰ Timestamp:', new Date().toISOString());
+        console.log('Redirecting to server callback:', callbackUrl);
+        console.log('Timestamp:', new Date().toISOString());
 
         // Redirect browser to server callback to complete auth and set httpOnly cookies.
         window.location.href = callbackUrl;
       } catch (error) {
-        console.error('❌ Exception in callback handler:', error);
-        console.error('❌ Error details:', {
+        console.error('Exception in callback handler:', error);
+        console.error('Error details:', {
           name: (error as any)?.name,
           message: (error as any)?.message,
           stack: (error as any)?.stack
@@ -173,13 +173,32 @@ function CallbackInner() {
   }
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
-      <div className="max-w-md mx-auto text-center space-y-4">
-        <div className="p-4 rounded-full bg-blue-500/20 border border-blue-500/50 w-fit mx-auto">
-          <Loader2 className="h-12 w-12 text-blue-600 animate-spin" />
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-50 via-transparent to-transparent dark:from-blue-900/20"></div>
+      <div className="relative z-10 w-full max-w-md">
+        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-slate-700/50 p-8">
+          <div className="text-center space-y-6">
+            <div className="relative">
+              <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-2xl scale-150 animate-pulse"></div>
+              <div className="relative bg-gradient-to-br from-blue-500 to-blue-600 rounded-full p-4 w-20 h-20 mx-auto flex items-center justify-center shadow-lg">
+                <Loader2 className="h-10 w-10 text-white animate-spin" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+                Completando Autenticación
+              </h1>
+              <p className="text-slate-600 dark:text-slate-400">
+                Por favor espera mientras procesamos tu login...
+              </p>
+            </div>
+            <div className="flex items-center justify-center space-x-2 text-sm text-slate-500 dark:text-slate-500">
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+              <span>Procesando tokens OAuth2</span>
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-75"></div>
+            </div>
+          </div>
         </div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Completando Autenticación</h1>
-        <p className="text-slate-600 dark:text-slate-400">Por favor espera mientras procesamos tu login...</p>
       </div>
     </div>
   );

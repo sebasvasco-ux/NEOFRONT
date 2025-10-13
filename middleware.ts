@@ -20,7 +20,7 @@ function validateOIDCConfiguration() {
   
   if (missing.length > 0) {
     oidcConfigError = `Missing OIDC configuration: ${missing.join(', ')}`
-    console.error('❌ OIDC Configuration Error:', oidcConfigError)
+    console.error(' OIDC Configuration Error:', oidcConfigError)
     oidcConfigValidated = true
     return false
   }
@@ -31,13 +31,13 @@ function validateOIDCConfiguration() {
     new URL(process.env.NEXT_PUBLIC_OIDC_REDIRECT_URI!)
   } catch (e) {
     oidcConfigError = 'Invalid OIDC URL format in environment variables'
-    console.error('❌ OIDC Configuration Error:', oidcConfigError)
+    console.error(' OIDC Configuration Error:', oidcConfigError)
     oidcConfigValidated = true
     return false
   }
 
   oidcConfigValidated = true
-  console.log('✅ OIDC configuration validated successfully')
+  console.log(' OIDC configuration validated successfully')
   return true
 }
 

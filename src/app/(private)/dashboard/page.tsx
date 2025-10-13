@@ -110,309 +110,267 @@ export default function Dashboard() {
   const [timeRange, setTimeRange] = useState('month');
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-          <div className="flex items-center space-x-3">
-            <img src="/Spectra.png" alt="Spectra" className="w-10 h-10" />
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-foreground">
-                Dashboard SPECTRA DC
-              </h1>
-              <p className="text-muted-foreground mt-1">
-                Monitoreo transaccional en tiempo real
-              </p>
-            </div>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 animate-fade-in-up">
+        <div className="flex items-center space-x-4">
+          <div className="relative">
+            <img src="/SpectraTRansparente.svg" alt="Spectra" className="w-12 h-12 animate-pulse-slow" />
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
           </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm">
-              Exportar Reporte
-            </Button>
-            <Button size="sm">
-              Nueva Transacción
-            </Button>
+          <div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent">
+              Dashboard SPECTRA DC
+            </h1>
+            <p className="text-muted-foreground mt-2 text-lg">
+              Monitoreo transaccional en tiempo real
+            </p>
           </div>
         </div>
+        <div className="flex items-center space-x-3">
+          <Button variant="outline" size="sm" className="glass-card hover:scale-105 transition-transform">
+            Exportar Reporte
+          </Button>
+          <Button size="sm" className="gradient-btn hover:scale-105 transition-transform">
+            Nueva Transacción
+          </Button>
+        </div>
+      </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          <Card className="bg-card border shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total Transacciones
-              </CardTitle>
-              <CreditCard className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground">
-                {demoStats.totalTransactions.toLocaleString()}
-              </div>
-              <div className="flex items-center space-x-1 text-xs text-green-600 mt-1">
-                <TrendingUp className="h-3 w-3" />
-                <span>+{demoStats.monthlyGrowth}%</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Monto Total
-              </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground">
-                {formatCurrency(demoStats.totalAmount)}
-              </div>
-              <div className="flex items-center space-x-1 text-xs text-green-600 mt-1">
-                <TrendingUp className="h-3 w-3" />
-                <span>+8.2%</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Tasa de Éxito
-              </CardTitle>
-              <CheckCircle className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground">
-                {demoStats.successRate}%
-              </div>
-              <div className="flex items-center space-x-1 text-xs text-green-600 mt-1">
-                <TrendingUp className="h-3 w-3" />
-                <span>+2.1%</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Alertas Activas
-              </CardTitle>
-              <AlertTriangle className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground">
-                {demoStats.activeAlerts}
-              </div>
-              <div className="flex items-center space-x-1 text-xs text-red-600 mt-1">
-                <TrendingDown className="h-3 w-3" />
-                <span>-5.3%</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Confianza Promedio
-              </CardTitle>
-              <Target className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-foreground">
-                91.2%
-              </div>
-              <div className="flex items-center space-x-1 text-xs text-green-600 mt-1">
-                <TrendingUp className="h-3 w-3" />
-                <span>+1.8%</span>
-              </div>
-            </CardContent>
-          </Card>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 animate-slide-in-left">
+        <div className="premium-card p-6 hover:scale-105 transition-transform duration-300">
+          <div className="flex items-center justify-between mb-4">
+            <CreditCard className="h-8 w-8 text-blue-400" />
+            <div className="modern-badge">+12.5%</div>
+          </div>
+          <div className="text-3xl font-bold text-foreground mb-2">
+            {demoStats.totalTransactions.toLocaleString()}
+          </div>
+          <p className="text-muted-foreground">Total Transacciones</p>
         </div>
 
-        {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="bg-card border shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-foreground">
-                Tendencia de Transacciones
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Evolución mensual de ingresos y gastos
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={transactionData}>
-                  <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
-                  <XAxis dataKey="month" className="text-xs" />
-                  <YAxis className="text-xs" />
-                  <Tooltip 
-                    formatter={(value) => formatCurrency(Number(value))}
-                    contentStyle={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                      border: '1px solid rgba(0, 0, 0, 0.1)',
-                      borderRadius: '8px',
-                      backdropFilter: 'blur(10px)'
-                    }}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="income" 
-                    stackId="1" 
-                    stroke="#10b981" 
-                    fill="url(#colorIncome)" 
-                    fillOpacity={0.6}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="expenses" 
-                    stackId="2" 
-                    stroke="#ef4444" 
-                    fill="url(#colorExpenses)" 
-                    fillOpacity={0.6}
-                  />
-                  <defs>
-                    <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0.1}/>
-                    </linearGradient>
-                    <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#ef4444" stopOpacity={0.1}/>
-                    </linearGradient>
-                  </defs>
-                </AreaChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-foreground">
-                Distribución por Categoría
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Desglose de transacciones por tipo
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={categoryData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={100}
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
-                    {categoryData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    formatter={(value) => [`${value}%`, 'Porcentaje']}
-                    contentStyle={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                      border: '1px solid rgba(0, 0, 0, 0.1)',
-                      borderRadius: '8px',
-                      backdropFilter: 'blur(10px)'
-                    }}
-                  />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+        <div className="premium-card p-6 hover:scale-105 transition-transform duration-300">
+          <div className="flex items-center justify-between mb-4">
+            <DollarSign className="h-8 w-8 text-green-400" />
+            <div className="modern-badge">+8.2%</div>
+          </div>
+          <div className="text-3xl font-bold text-foreground mb-2">
+            {formatCurrency(demoStats.totalAmount)}
+          </div>
+          <p className="text-muted-foreground">Monto Total</p>
         </div>
 
-        {/* Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="bg-card border shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-foreground">
-                Transacciones Recientes
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Últimas transacciones monitoreadas
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea className="h-[300px] w-full">
-                <div className="space-y-3">
-                  {recentTransactions.map((transaction) => (
-                    <div key={transaction.id} className="flex items-center justify-between p-3 rounded-lg border bg-muted/50">
-                      <div className="flex items-center space-x-3">
-                        <div className={`w-2 h-2 rounded-full ${getStatusColor(transaction.status)}`} />
-                        <div>
-                          <p className="font-medium text-sm text-foreground">
-                            {transaction.description}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {transaction.date}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className={`font-semibold text-sm ${
-                          transaction.amount > 0 ? 'text-green-600' : 'text-red-600'
-                        }`}>
-                          {formatCurrency(transaction.amount)}
+        <div className="premium-card p-6 hover:scale-105 transition-transform duration-300">
+          <div className="flex items-center justify-between mb-4">
+            <CheckCircle className="h-8 w-8 text-cyan-400" />
+            <div className="modern-badge">+2.1%</div>
+          </div>
+          <div className="text-3xl font-bold text-foreground mb-2">
+            {demoStats.successRate}%
+          </div>
+          <p className="text-muted-foreground">Tasa de Éxito</p>
+        </div>
+
+        <div className="premium-card p-6 hover:scale-105 transition-transform duration-300">
+          <div className="flex items-center justify-between mb-4">
+            <AlertTriangle className="h-8 w-8 text-orange-400" />
+            <div className="modern-badge bg-red-500">-5.3%</div>
+          </div>
+          <div className="text-3xl font-bold text-foreground mb-2">
+            {demoStats.activeAlerts}
+          </div>
+          <p className="text-muted-foreground">Alertas Activas</p>
+        </div>
+
+        <div className="premium-card p-6 hover:scale-105 transition-transform duration-300">
+          <div className="flex items-center justify-between mb-4">
+            <Target className="h-8 w-8 text-purple-400" />
+            <div className="modern-badge">+1.8%</div>
+          </div>
+          <div className="text-3xl font-bold text-foreground mb-2">
+            91.2%
+          </div>
+          <p className="text-muted-foreground">Confianza Promedio</p>
+        </div>
+      </div>
+
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-up">
+        <div className="premium-card p-6">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Tendencia de Transacciones
+          </h3>
+          <p className="text-muted-foreground mb-6">
+            Evolución mensual de ingresos y gastos
+          </p>
+          <ResponsiveContainer width="100%" height={300}>
+            <AreaChart data={transactionData}>
+              <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+              <XAxis dataKey="month" className="text-xs" />
+              <YAxis className="text-xs" />
+              <Tooltip
+                formatter={(value) => formatCurrency(Number(value))}
+                contentStyle={{
+                  backgroundColor: 'rgba(30, 41, 59, 0.98)',
+                  border: '1px solid rgba(148, 163, 184, 0.3)',
+                  borderRadius: '8px',
+                  backdropFilter: 'blur(10px)',
+                  color: '#f1f5f9'
+                }}
+                labelStyle={{ color: '#f1f5f9' }}
+              />
+              <Area 
+                type="monotone" 
+                dataKey="income" 
+                stackId="1" 
+                stroke="#10b981" 
+                fill="url(#colorIncome)" 
+                fillOpacity={0.6}
+              />
+              <Area 
+                type="monotone" 
+                dataKey="expenses" 
+                stackId="2" 
+                stroke="#ef4444" 
+                fill="url(#colorExpenses)" 
+                fillOpacity={0.6}
+              />
+              <defs>
+                <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor="#10b981" stopOpacity={0.1}/>
+                </linearGradient>
+                <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor="#ef4444" stopOpacity={0.1}/>
+                </linearGradient>
+              </defs>
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="premium-card p-6">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Distribución por Categoría
+          </h3>
+          <p className="text-muted-foreground mb-6">
+            Desglose de transacciones por tipo
+          </p>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={categoryData}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={100}
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {categoryData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip
+                formatter={(value) => [`${value}%`, 'Porcentaje']}
+                contentStyle={{
+                  backgroundColor: 'rgba(30, 41, 59, 0.98)',
+                  border: '1px solid rgba(148, 163, 184, 0.3)',
+                  borderRadius: '8px',
+                  backdropFilter: 'blur(10px)',
+                  color: '#f1f5f9'
+                }}
+                labelStyle={{ color: '#f1f5f9' }}
+              />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-up">
+        <div className="premium-card p-6">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Transacciones Recientes
+          </h3>
+          <p className="text-muted-foreground mb-6">
+            Últimas transacciones monitoreadas
+          </p>
+          <ScrollArea className="h-[300px] w-full">
+            <div className="space-y-3">
+              {recentTransactions.map((transaction) => (
+                <div key={transaction.id} className="glass-card p-4 hover:scale-102 transition-transform">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-3 h-3 rounded-full ${getStatusColor(transaction.status)}`} />
+                      <div>
+                        <p className="font-medium text-foreground">
+                          {transaction.description}
                         </p>
-                        <div className="flex items-center space-x-1">
-                          <span className="text-xs text-muted-foreground">
-                            {Math.round(transaction.confidence * 100)}%
-                          </span>
-                          <div className="w-8 h-1 bg-muted rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full ${
-                                transaction.confidence > 0.9 ? 'bg-green-500' : 
-                                transaction.confidence > 0.7 ? 'bg-yellow-500' : 'bg-red-500'
-                              }`}
-                              style={{ width: `${transaction.confidence * 100}%` }}
-                            />
-                          </div>
+                        <p className="text-xs text-muted-foreground">
+                          {transaction.date}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className={`font-semibold ${
+                        transaction.amount > 0 ? 'text-green-400' : 'text-red-400'
+                      }`}>
+                        {formatCurrency(transaction.amount)}
+                      </p>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xs text-muted-foreground">
+                          {Math.round(transaction.confidence * 100)}%
+                        </span>
+                        <div className="w-12 h-2 bg-muted rounded-full overflow-hidden">
+                          <div 
+                            className={`h-full ${
+                              transaction.confidence > 0.9 ? 'bg-green-500' : 
+                              transaction.confidence > 0.7 ? 'bg-yellow-500' : 'bg-red-500'
+                            }`}
+                            style={{ width: `${transaction.confidence * 100}%` }}
+                          />
                         </div>
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </ScrollArea>
-            </CardContent>
-          </Card>
+              ))}
+            </div>
+          </ScrollArea>
+        </div>
 
-          <Card className="bg-card border shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-foreground">
-                Alertas Recientes
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Monitoreo de seguridad y detección de anomalías
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea className="h-[300px] w-full">
-                <div className="space-y-3">
-                  {recentAlerts.map((alert) => (
-                    <div key={alert.id} className="flex items-center justify-between p-3 rounded-lg border bg-muted/50">
-                      <div className="flex items-center space-x-3">
-                        <div className={`w-2 h-2 rounded-full ${getSeverityColor(alert.severity)}`} />
-                        <div>
-                          <p className="font-medium text-sm text-foreground">
-                            {alert.title}
-                          </p>
-                          <p className="text-xs text-muted-foreground">{alert.date}</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium text-muted-foreground">{alert.status}</p>
+        <div className="premium-card p-6">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            Alertas Recientes
+          </h3>
+          <p className="text-muted-foreground mb-6">
+            Monitoreo de seguridad y detección de anomalías
+          </p>
+          <ScrollArea className="h-[300px] w-full">
+            <div className="space-y-3">
+              {recentAlerts.map((alert) => (
+                <div key={alert.id} className="glass-card p-4 hover:scale-102 transition-transform">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-3 h-3 rounded-full ${getSeverityColor(alert.severity)}`} />
+                      <div>
+                        <p className="font-medium text-foreground">
+                          {alert.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground">{alert.date}</p>
                       </div>
                     </div>
-                  ))}
+                    <div className="text-right">
+                      <p className="text-sm font-medium text-muted-foreground">{alert.status}</p>
+                    </div>
+                  </div>
                 </div>
-              </ScrollArea>
-            </CardContent>
-          </Card>
+              ))}
+            </div>
+          </ScrollArea>
         </div>
       </div>
     </div>

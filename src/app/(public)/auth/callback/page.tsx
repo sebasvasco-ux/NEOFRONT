@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2, AlertCircle, CheckCircle } from 'lucide-react';
 
-export default function AuthCallback() {
+function AuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -136,5 +136,26 @@ export default function AuthCallback() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Loading fallback component
+function AuthCallbackLoading() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center p-4">
+      <div className="text-center">
+        <Loader2 className="h-16 w-16 text-blue-400 animate-spin mx-auto mb-4" />
+        <p className="text-white">Cargando...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function AuthCallback() {
+  return (
+    <Suspense fallback={<AuthCallbackLoading />}>
+      <AuthCallbackContent />
+    </Suspense>
   );
 }

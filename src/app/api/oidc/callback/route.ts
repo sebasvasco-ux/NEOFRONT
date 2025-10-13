@@ -194,19 +194,40 @@ export async function GET(req: Request) {
     let claims: Record<string, any> | undefined
     try {
       // userinfoEndpoint set above (may be discovery or fallback)
-      const uiRes = await fetch(userinfoEndpoint, { 
-        headers: { Authorization: `Bearer ${tokenJson.access_token}` } 
+      const uiRes = await fetch(userinfoEndpoint, {
+        headers: { Authorization: `Bearer ${tokenJson.access_token}` }
       })
-      
+
       if (uiRes.ok) {
         const data = await uiRes.json()
-        const allowed = ['sub', 'email', 'email_verified', 'name', 'preferred_username', 'updated_at']
+        const allowed = ['sub', 'email', 'email_verified', 'name', 'preferred_username', 'updated_at', 'role', 'roles']
         claims = Object.fromEntries(Object.entries(data).filter(([k]) => allowed.includes(k)))
-        logAuth('callback.userinfo_success', { correlationId, hasEmail: !!claims?.email })
+        logAuth('callback.userinfo_success', { correlationId, hasEmail: !!claims?.email, hasRole: !!claims?.role })
       }
     } catch (e: any) {
       logAuth('callback.userinfo_failed', { correlationId, error: e.message })
       // Continue without userinfo - don't fail the auth flow
+    }
+
+    // Extract role from id_token payload if not in userinfo
+    // This is a fallback when the /userinfo endpoint doesn't return role
+    if (!claims?.role && verifiedPayload) {
+      try {
+        // Check for 'role' (string) or 'roles' (array) in the token
+        if (verifiedPayload.role) {
+          claims = claims || {}
+          claims.role = verifiedPayload.role
+          logAuth('callback.role_from_token', { correlationId, role: verifiedPayload.role, source: 'role_claim' })
+        } else if (verifiedPayload.roles && Array.isArray(verifiedPayload.roles) && verifiedPayload.roles.length > 0) {
+          claims = claims || {}
+          // Map the first role, removing 'ROLE_' prefix if present
+          const firstRole = verifiedPayload.roles[0]
+          claims.role = firstRole.startsWith('ROLE_') ? firstRole.substring(5) : firstRole
+          logAuth('callback.role_from_token', { correlationId, role: claims.role, source: 'roles_array', originalRoles: verifiedPayload.roles })
+        }
+      } catch (e: any) {
+        logAuth('callback.role_extraction_failed', { correlationId, error: e.message }, 'warn')
+      }
     }
 
     // Create session
